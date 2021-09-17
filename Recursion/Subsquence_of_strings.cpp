@@ -1,25 +1,22 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int subq(string input, string output[])
+int subq(string input,string output[])
 {
-    if(input.empty())
+    if(input.size()==0)
        {
            output[0]=" ";
            return 1;
        }
     
-    string s = input.substr(1);
-    int count= subq(s,output);
+    int count = subq(input.substr(1),output);
 
     for(int i=0;i<count;i++)
     {
-        output[i+count] = input[0] + output[i];
+        output[i+count]= input[0] + output[i]; 
     }
-
     return 2*count;
 }
-
 
 int main()
 {
