@@ -2,16 +2,15 @@
 using namespace std;
 
 void subq(string input,string output)
-{   
-     if(input.empty())
-     {
-         cout<<output<<endl;
-         return;
-     }
+{
+    if(input.length()==0)
+    {
+        cout<<output<<endl;
+        return;
+    }
 
-     subq(input.substr(1),output);
-     subq(input.substr(1),output + input[0]);
-     return;
+    subq(input.substr(1),output);
+    subq(input.substr(1),output + input[0]);
 }
 
 int main()
@@ -19,7 +18,7 @@ int main()
     string input;
     cin>> input;
 
-    string output =" ";
+    string output ="";
 
     subq(input,output);
     return 0;
