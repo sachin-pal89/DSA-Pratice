@@ -122,8 +122,12 @@ int main()
    
    d1.add(34);
 
+   DynamicArray d3 = d1;
+
    d1.print();
+   d3.print();
    d2.print();
+
 
     return 0;
 }
