@@ -135,6 +135,166 @@ class TreeNode
           }
       }
       */
+
+     // To count no.of Nodes in the tree
+     int numNodes(TreeNode<T>* root)
+     {
+         if(root == NULL)
+         {
+             return 0;
+         }
+
+         int ans = 1;
+
+         for(int i=0; i<root->children.size(); i++)
+         {
+             ans += numNodes(root->children[i]);
+         }
+
+         return ans;
+     }
+
+     // Sum of all nodes data
+     T sumNodes(TreeNode<T>* root)
+     {
+         if(root == NULL)
+         {
+             return 0;
+         }
+
+         T sum = root->data;
+
+         for(int i=0; i<root->children.size(); i++)
+         {
+             sum  += sumNodes(root->children[i]);
+         }
+
+         return sum;
+     }
+
+     //To get Node with maximum data value in the tree
+     TreeNode<T>* maxValueNode(TreeNode<T>* root)
+     {
+         if(root == NULL)
+         {
+             return root;
+         }
+
+         T max = root->data;
+         TreeNode<T>* ans = root;
+
+         for(int i=0; i<root->children.size(); i++)
+         {
+             TreeNode<T>* x = maxValueNode(root->children[i]);
+
+             if(max < x->data)
+             {
+                 max = x->data;
+                 ans = x;
+             }
+         }
+
+         return ans;
+     }
+     
+     // To print nodes data which are at depth k from root
+     void nodeAtDepth(TreeNode<T>* root, int k)
+     {
+         if(root == NULL)
+         {
+             return ;
+         }
+
+         if(k == 0)
+         {
+             cout<<root->data<<endl;
+             return;
+         }
+
+         for(int i=0; i<root->children.size(); i++)
+         {
+             nodeAtDepth(root->children[i], k-1);
+         }
+     }
+
+     // To find height of the tree
+     int treeHeight(TreeNode<T>* root)
+     {
+         if(root == NULL)
+         {
+             return 0;
+         }
+
+         int height = 1;
+         int max = 0;
+
+         for(int i=0; i<root->children.size(); i++)
+         {
+             int x = treeHeight(root->children[i]);
+
+             if(max < x)
+             {
+                 max = x;
+             }
+         }
+
+         return max + height;
+     }
+
+     // Count of leaf Node
+     int countLeaf(TreeNode<T>* root)
+     {
+         if(root == NULL)
+         {
+             return 0;
+         }
+
+         if(root->children.empty())
+         {
+             return 1;
+         }
+
+         int count = 0;
+
+         for(int i=0; i<root->children.size(); i++)
+         {
+            count += countLeaf(root->children[i]);
+         }
+
+         return count;
+     }
+
+     // To print tree in post order
+     void printPostOrder(TreeNode<T>* root)
+     {
+         if(root == NULL)
+         {
+             return;
+         }
+
+         if(root->children.empty())
+         {
+             cout<<root->data<<" ";
+             return;
+         }
+
+         for(int i=0; i<root->children.size(); i++)
+         {
+             printPostOrder(root->children[i]);
+         }
+         
+         cout<<root->data<<" ";
+         return;
+     }
+
+     // Destructor
+     ~TreeNode()
+     {
+         for(int i=0; i< children.size(); i++)
+         {
+             delete children[i];
+         }
+     }
 };
 
 int main()
@@ -142,10 +302,37 @@ int main()
     // To Take input
     
     
-    TreeNode<char>* root = new TreeNode<char>();
+    TreeNode<int>* root = new TreeNode<int>();
 
-    TreeNode<char>* x = root->inputNodeLevel();
-    root->printNodeLevel(x);
+    root = root->inputNodeLevel();
+    root->printNodeLevel(root);
+
+    cout<<"No.of nodes is "<<root->numNodes(root)<<endl;
+
+    cout<<"Post order print "<<endl;
+    root->printPostOrder(root);
+    cout<<endl;
+
+    cout<<"Sum of all Nodes is "<<root->sumNodes(root)<<endl;
+
+    TreeNode<int>* x = root->maxValueNode(root);
+    if(x != NULL)
+    {
+        cout<<"maximum node value in tree is "<<x->data<<endl;
+    }
+
+    cout<<"height of the tree is "<<root->treeHeight(root)<<endl;
+
+    cout<<"Number of Leaf Node in tree is "<<root->countLeaf(root)<<endl;
+
+    int k;
+    cout<<"Enter the Depth at which element is to be found ";
+    cin>>k;
+
+    cout<<"Node at Depth "<<k<<" is "<<endl;
+    root->nodeAtDepth(root,k);
+
+    delete root;
 
     return 0;
 }
