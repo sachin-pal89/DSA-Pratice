@@ -22,45 +22,54 @@ kw
 */
 
 #include<iostream>
-#include<string.h>
+#include<string>
 using namespace std;
-
-int helper(string input, string output[], char ans,int row)
-{
-    if(input[0] == '\0')
-    {
-        output[row] = ans;
-        return row+1;
-    }
-
-    int x = input[0] - 48;
-    char c = x - 'a' +1;
-    char c1 = '\0';
-
-    int ans1 = helper(input.substr(1),output,c,row);
-    
-    string s = input.substr(0,2);
-    int o = stoi(s);
-
-    if(o > 10 && o < 27)
-    {
-       c1 = o - 'a' +1;
-
-       int ans2 = helper(input.substr(2),output,c1,ans1);
-
-    }
-
-
-
-
-
-}
 
 int getCodes(string input, string output[])
 {
-    char ans;
+    if(input[0] == '\0')
+   {
+       output[0] = " ";
+       return 1;
+   }
 
-    return helper(input,output,ans,0);
+   // Including only single value
+   int onei = input[0] - 48;                                                
+   char firstc = onei + 'a' - 1;
+ 
+   string s1[1000];
+   string s2[1000];
+   char secc;
+   int row1, row2 = 0;
+
+   row1 = getCodes(input.substr(1),s1);
+   
+   if(input[1] != '\0')
+   {
+       // Including starting two index element of string
+      int seci = (onei*10) + (input[1] - 48);
+      secc = seci + 'a' - 1;
+   
+   if(seci >= 11 && seci <= 26)
+   {
+       row2 = getCodes(input.substr(2),s2);
+   }
+   }
+
+   int k = 0;
+   for(int i = 0; i < row1; i++)
+   {
+       output[k] = firstc + s1[i];
+       k++;
+   }
+
+   for(int i = 0; i < row2; i++)
+   {
+       output[k] = secc + s2[i];
+       k++;
+   }
+
+   return k; 
 }
 
 int main()
@@ -71,7 +80,6 @@ int main()
     string output[10000];
 
     int count = getCodes(input,output);
-
     for(int i=0; i<count; i++)
     {
         cout<<output[i]<<endl;

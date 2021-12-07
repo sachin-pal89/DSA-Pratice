@@ -33,4 +33,29 @@ int main()
    else{
        cout<<"Anjali is not present "<<endl;
    }
+   
+   // Adding sample elements
+   mapping["Sushma"] = 42;
+   mapping["Chandev"] = 46;
+
+   // Using iterator to traverse in map && setting it at begining of map
+   unordered_map<string,int> :: iterator it = mapping.begin();
+
+   // Printing all element with there key values present in map
+   while(it != mapping.end())
+   {
+       cout<<"Name: "<<it->first<<" Age: "<<it->second<<endl;
+       it++;
+   }
+
+   // To find a value in map
+   if(mapping.find("Chandev") != mapping.end())
+   {
+       cout<<"Chandev Found"<<endl;
+   }
+   else{
+       cout<<"Not present"<<endl;
+   }
+   
+   return 0;
 }
