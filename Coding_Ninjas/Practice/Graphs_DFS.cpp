@@ -32,6 +32,15 @@ void print(int** edges, int n, int startV, bool* visit)
         }
     }
 
+    // To print any vertices which are disconnected in a graph
+    for(int i = 0; i < n; i++)
+    {
+        if(!visit[i])
+        {
+            print(edges,n,i,visit);
+        }
+    }
+
     return;
 }
 
