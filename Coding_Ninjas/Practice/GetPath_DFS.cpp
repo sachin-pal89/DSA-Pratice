@@ -102,7 +102,7 @@ int main() {
     int StartV,EndV;
     cin>>StartV>>EndV;
     
-    findPath(edges,n,min(StartV,EndV),max(StartV,EndV));
+    findPath(edges,n,StartV,EndV);
     
     return 0;
 }
